@@ -9,11 +9,34 @@ class User < ApplicationRecord
   has_many :book_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
+  # 自分がフォローしたりアンフォローしたりするための記述
+  has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  # フォロー一覧
+  has_many :followings, through: :active_relationships, source: :follower
+
+  # フォローされる方
+  has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  # フォロワー一覧
+  has_many :followers, through: :passive_relationships, source: :followed
+
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :introduction, length: { maximum: 50 }
-  
-  
+
+
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.jpg'
   end
+
+  def follow(user_id)
+    active_relationships.create(follower_id: user_id)
+  end
+
+  def unfollow(user_id)
+    active_relationships.find_by(follower_id: user_id).destroy
+  end
+
+  def following?(user)
+    followings.include?(user)
+  end
+
 end
