@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'rooms/create'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   root to: 'homes#top'
@@ -19,7 +20,7 @@ Rails.application.routes.draw do
 
   get 'searches/search' => 'searches#search', as: 'search'
 
-  resources :chats, only: [:show, :create]
+  resources :chats, only: [:create, :show]
   resources :rooms, only: [:create]
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :favorited_books, through: :favorites, source: :book
   has_many :user_rooms, dependent: :destroy
   has_many :chats, dependent: :destroy
+  has_many :rooms, through: :user_rooms
 
   # フォローアンフォロー
   has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy

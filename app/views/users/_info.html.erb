@@ -21,9 +21,9 @@
 <div class='row'>
   <% if current_user != user %>
     <% if current_user.following?(user) %>
-      <%= link_to "フォロー外す", user_relationships_path(user), class: "btn btn-info btn-block", method: :delete %>
+      <%= link_to "フォロー外す", user_relationships_path(user), class: "btn btn-info", method: :delete %>
     <% else %>
-      <%= link_to "フォローする", user_relationships_path(user), class: "btn btn-success btn-block", method: :post %>
+      <%= link_to "フォローする", user_relationships_path(user), class: "btn btn-success", method: :post %>
     <% end %>
   <% end %>
   <% if user == current_user %>
@@ -32,18 +32,7 @@
     <% end %>
   <% end %>
 
-<% unless @user.id == current_user.id %>
-  <% if (current_user.following? @user) && (@user.following? current_user)  %>
-  <% if @isRoom == true %>
-    <p class="user-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
-  <% else %>
-    <%= form_with @room do |f| %>
-      <%= fields_for @user_room do |e| %>
-        <%= e.hidden_field :user_id, value: @user.id %>
-      <% end %>
-      <%= f.submit "チャットを始める", class:"btn btn-primary btn-lg user-show-chat"%>
-    <% end %>
+  <% if current_user != user && current_user.following?(user) && user.following?(current_user) %>
+    <%= link_to 'chatを始める', chat_path(user.id), class: "ml-3 mt-2"%>
   <% end %>
-  <% end %>
-<% end %>
 </div>
