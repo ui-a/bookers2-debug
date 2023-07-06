@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   end
 
   get 'searches/search' => 'searches#search', as: 'search'
+  get 'tagsearches/search' => 'tagsearches#search', as: 'tagsearch'
 
   resources :chats, only: [:create, :show]
   resources :rooms, only: [:create]
