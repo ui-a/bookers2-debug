@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resource :relationships, only: [:create, :destroy]
     get 'followings' => 'relationships#followings'
     get 'followers' => 'relationships#followers'
+    get 'daysearch' => 'users#search', as: 'daysearch'
   end
 
   get 'searches/search' => 'searches#search', as: 'search'
