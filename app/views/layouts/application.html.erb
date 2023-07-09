@@ -14,7 +14,9 @@
       <main>
         <p id="notice"><%= notice %></p>
         <%= render 'searches/search' %>
-        <%= render 'tagsearches/tagsearch' %>
+        <% if user_signed_in? %>
+          <%= render 'tagsearches/tagsearch' %>
+        <% end %>
         <%= yield %>
       </main>
     <%= render 'layouts/footer' %>

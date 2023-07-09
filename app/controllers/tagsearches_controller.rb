@@ -1,5 +1,4 @@
 class TagsearchesController < ApplicationController
-  before_action :authenticate_user!
   
   def search
     @model = Book
